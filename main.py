@@ -1,3 +1,4 @@
+# TODO: handle the cases where a non-memory reference instruction is used with indirect
 instructions = {
     # memory reference
     'AND': '0000',
@@ -49,16 +50,20 @@ lineCounter = 0
 flag = True
 
 # first time reading:
-for line in lines:
-    onlyOneSpace = ' '.join(line.split())
-    if 'ORG' in line:
+for index in range(len(lines)):
+    lines[index] = onlyOneSpace = ' '.join(lines[index].split())
+    if 'ORG' in lines[index]:
         lineCounter = int(onlyOneSpace[3:])
-    elif ',' in line:
+    elif ',' in lines[index]:
         variableTable[lineCounter] = onlyOneSpace[0:onlyOneSpace.find(',')]
-    elif 'END' in line:
+    elif 'END' in lines[index]:
         break
     lineCounter += 1
 
 # second time reading:
-for line in lines:
-    pass
+for index in range(len(lines)):
+    instruction = lines[index][0:3]
+    
+    if instruction in instructions:
+        lines[index] = lines[index].replace(instruction, instructions[instruction])
+    print(lines[index])
