@@ -1,8 +1,3 @@
-file = open('assembly.txt', 'r')
-content = file.read()
-
-lines = content.splitlines()
-
 instructions = {
     # memory reference
     'AND': '0000',
@@ -12,6 +7,14 @@ instructions = {
     'BUN': '0100',
     'BSA': '0101',
     'ISZ': '0110',
+
+    'AND I': '1000',
+    'ADD I': '1001',
+    'LDA I': '1010',
+    'STA I': '1011',
+    'BUN I': '1100',
+    'BSA I': '1101',
+    'ISZ I': '1110',
 
     # register reference
     'CLA': '0111',
@@ -35,8 +38,24 @@ instructions = {
     'ION': '1111',
     'IOF': '1111',
 }
+variableTable = {}
 
+# read the assembly code
+file = open('assembly.txt', 'r')
+content = file.read()
+lines = content.splitlines()
+
+lineCounter = 0
+flag = True
+
+# first time reading:
 for line in lines:
-    if ',' in line:
+    if 'ORG' in line:
+        # set the lineCounter
+        pass
+    elif ',' in line:
+        # add to variable_table
+        pass
+    elif 'END' in line:
         pass
 
