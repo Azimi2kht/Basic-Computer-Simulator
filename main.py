@@ -50,12 +50,15 @@ flag = True
 
 # first time reading:
 for line in lines:
+    onlyOneSpace = ' '.join(line.split())
     if 'ORG' in line:
-        # set the lineCounter
-        pass
+        lineCounter = int(onlyOneSpace[3:])
     elif ',' in line:
-        # add to variable_table
-        pass
+        variableTable[lineCounter] = onlyOneSpace[0:onlyOneSpace.find(',')]
     elif 'END' in line:
-        pass
+        break
+    lineCounter += 1
 
+# second time reading:
+for line in lines:
+    pass
