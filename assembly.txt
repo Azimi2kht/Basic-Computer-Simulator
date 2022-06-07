@@ -1,11 +1,26 @@
     ORG      100
-    LDA  SUB
-    CMA
-    INC
-    ADD MIN
-    STA DIF
+    LDA      ADS
+    STA      PTR
+    LDA      NBR
+    STA      CTR
+    CLA
+LOP,ADD PTR I
+    ISZ PTR
+    ISZ CTR
+    BUN LOP
+    STA SUM
     HLT
-MIN, DEC    83
-SUB, DEC -23
-DIF, HEX   0
+ADS, HEX 150
+NBR, HEX 7
+CTR, HEX 0
+PTR, HEX 0
+SUM, HEX 0
+    ORG 150
+    HEX 0
+    HEX 23
+    HEX 66
+    HEX 123
+    HEX 1231
+    HEX 00
+    HEX 0123
     END
