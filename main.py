@@ -1,4 +1,4 @@
-# TODO: handle the cases where a non-memory reference instruction is used with indirect
+  # TODO: handle the cases where a non-memory reference instruction is used with indirect
 instructions = {
     # memory reference
     'AND': '0000',

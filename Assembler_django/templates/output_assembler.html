@@ -1,0 +1,33 @@
+{% load static %}
+<html>
+
+<head>
+    <title>Assembler</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+    <div id="content">
+        <div id="Header">
+            <h1 style="color: white;">Assembler</h1>
+
+            <button id="btn">Run</button>
+        </div>
+        <div id="assembler">
+            <div id="content-textarea">
+                <div id="count">
+                    <span>1</span>
+                </div>
+                <!-- <textarea id="input" rows="10" cols="50" unselectable="off" spellcheck = "false" ></textarea> -->
+
+                    {{form}}
+
+                <div id="drop-down"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>
