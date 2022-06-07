@@ -50,20 +50,32 @@ lineCounter = 0
 flag = True
 
 # first time reading:
-for index in range(len(lines)):
+index = 0
+while index < len(lines):
     lines[index] = onlyOneSpace = ' '.join(lines[index].split())
     if 'ORG' in lines[index]:
         lineCounter = int(onlyOneSpace[3:])
+        # delete the line
+        lines.pop(index)
+        index -= 1
     elif ',' in lines[index]:
         variableTable[lineCounter] = onlyOneSpace[0:onlyOneSpace.find(',')]
+        # delete the line
+        lines.pop(index)
+        index -= 1
     elif 'END' in lines[index]:
+        # delete the line
+        lines.pop(index)
+        index -= 1
         break
+    else:
+        instruction = lines[index][0:3]
+        if instruction in instructions:
+            lines[index] = lines[index].replace(instruction, instructions[instruction])
+    index += 1
     lineCounter += 1
 
 # second time reading:
 for index in range(len(lines)):
-    instruction = lines[index][0:3]
-    
-    if instruction in instructions:
-        lines[index] = lines[index].replace(instruction, instructions[instruction])
-    print(lines[index])
+    if len(lines[index].split()) > 1:
+        lines[index] = lines[index].replace(lines[index].split()[1], str(list(variableTable.keys())[list(variableTable.values()).index(lines[index].split()[1])]))
