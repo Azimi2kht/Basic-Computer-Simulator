@@ -79,3 +79,7 @@ while index < len(lines):
 for index in range(len(lines)):
     if len(lines[index].split()) > 1:
         lines[index] = lines[index].replace(lines[index].split()[1], str(list(variableTable.keys())[list(variableTable.values()).index(lines[index].split()[1])]))
+
+# printing the result
+for line in lines:
+    print(line)
