@@ -123,6 +123,8 @@ while index < len(lines):
         instruction = lines[index][0:3]
         if instruction in instructions:
             lines[index] = lines[index].replace(instruction, instructions[instruction])
+        else:
+            raise Exception('Not a valid instruction at line:', index)
 
     index += 1
     lineCounter += 1

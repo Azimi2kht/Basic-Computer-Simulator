@@ -3,7 +3,7 @@
     CMA
     INC
     ADD       MIN
-    STA DIF
+    STO DIF
     HLT
 MIN, DEC 81
 SUB, DEC -23
