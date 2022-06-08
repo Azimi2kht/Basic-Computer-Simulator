@@ -1,4 +1,41 @@
+import re
 # TODO: handle the cases where a non-memory reference instruction is used with indirect
+def flip(c):
+    return '1' if (c == '0') else '0'
+
+
+def twos_complement(b):
+    n = len(b)
+    ones = ""
+    twos = ""
+
+    # for ones complement flip every bit
+    for i in range(n):
+        ones += flip(b[i])
+
+    # for two's complement go from right
+    # to left in ones complement and if
+    # we get 1 make, we make them 0 and
+    # keep going left when we get first
+    # 0, make that 1 and go out of loop
+    ones = list(ones.strip(""))
+    twos = list(ones)
+    for i in range(n - 1, -1, -1):
+
+        if ones[i] == '1':
+            twos[i] = '0'
+        else:
+            twos[i] = '1'
+            break
+
+    i -= 1
+    # If No break : all are 1 as in 111 or 11111
+    # in such case, add extra 1 at beginning
+    if i == -1:
+        twos.insert(0, '1')
+    return ''.join(twos)
+
+
 instructions = {
     # memory reference
     'AND': '0000',
@@ -62,15 +99,32 @@ while index < len(lines):
         if ',' in lines[index]:
             variableTable[lineCounter] = onlyOneSpace[0:onlyOneSpace.find(',')]
         instruction = lines[index][lines[index].find(',') + 1: lines[index].find(' ')]
-        lines[index] = lines[index].replace(instruction, instructions[instruction+'I'])
+        lines[index] = lines[index].replace(instruction, instructions[instruction + 'I'])
         lines[index] = lines[index][lines[index].find(',') + 1:]
         lines[index] = lines[index].replace('I', '')
 
     elif ',' in lines[index] or 'HEX' in lines[index] or 'DEC' in lines[index]:
         variableTable[lineCounter] = onlyOneSpace[0:onlyOneSpace.find(',')]
-        # remove the line
-        lines.pop(index)
-        index -= 1
+        l = []
+        # find number in line:
+        for t in lines[index].split():
+            try:
+                l.append(str(int(t)))
+            except ValueError:
+                pass
+        num = ''.join(l)
+
+        if 'HEX' in lines[index]:
+            decimal = int(num, 16)
+            binary = bin(decimal)[2:0].zfill(16)
+            lines[index] = binary
+        else:
+            if int(num) >= 0:
+                binary = bin(int(num))[2:].zfill(16)
+            else:
+                binary = twos_complement(bin(abs(int(num)))).zfill(16)
+            lines[index] = binary
+
     elif 'END' in lines[index]:
         # remove the line
         lines.pop(index)
@@ -97,4 +151,4 @@ for index in range(len(lines)):
 
 # printing the result
 for line in lines:
-    print(line)
+    print(line.replace(' ',''))
