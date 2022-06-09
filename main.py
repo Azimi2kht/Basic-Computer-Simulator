@@ -7,8 +7,8 @@ instruction_list = code.splitlines()
 
 # assemble
 a = assembler.Assembler()
-a.assemble(instruction_list)
+assembly_list = a.assemble(instruction_list)
 
 # printing the result
-for line in instruction_list:
+for line in assembly_list:
     print(line.replace(' ', ''))

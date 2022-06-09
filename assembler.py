@@ -139,3 +139,4 @@ class Assembler:
                 except ValueError:
                     pass
         pass
+        return instruction_list
