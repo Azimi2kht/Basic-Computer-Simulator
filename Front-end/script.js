@@ -4,7 +4,9 @@ const content = document.getElementById('content');
 const dropdown = document.getElementById("drop-down")
 const btn = document.getElementById("btn")
 const animation = document.getElementById("center-body")
-var firstElement = ""
+
+
+var firstElement = "   "
 var listDropDowon = []
 instructions = [
     // memory reference
@@ -48,26 +50,28 @@ textarea.addEventListener("input", (e) =>{
             LineNumber.innerHTML += `<span>${i}</span>`
         }
         autoCompelet(e.pageX, e.pageY)
-    
+    console.log(firstElement)
 
 })
 textarea.addEventListener('keydown', (e) => {
+    console.log(textarea.selectionStart, textarea.selectionEnd)
+
     if (e.key == "Tab") {
-        // if (firstElement.length !=  0){
-        //     GetValue(firstElement)
-        //     firstElement = "    "
-        // }
         e.preventDefault()
-        textarea.value = textarea.value.slice(0, textarea.selectionStart) + "   " + textarea.value.slice(textarea.selectionStart, textarea.value.length);
+        GetValue(firstElement)
+        firstElement = "   "
     }  
 });
+
 function ShowAnimation(){
+    console.log('enter')
     setTimeout(() => {
         animation.style.visibility = "visible"
-    }, 10)
+    }, 100)
     setTimeout(() => {
         animation.style.visibility = "hidden"
-    }, 2000)
+    }, 3000)
+    body.style.opacity = "1"
     
 }
 function coutingLine(textarea){
@@ -82,18 +86,25 @@ function coutingLine(textarea){
 }
 function GetValue(value){
     
-    var text = textarea.value;
+    console.log(value)
+    if (value === undefined)
+        value = "   "
+
+    var text = textarea.value.slice(0, textarea.selectionEnd);
     var textArray = text.split(/[\s,]+/);
     var textArrayLength = textArray.length;
     var textArrayLast = textArray[textArrayLength - 1];
-    textarea.value  = text.slice(0, text.length - textArrayLast.length ) + value;
+
+    if (value != "   ")
+            textarea.setRangeText(value.trim(), textarea.selectionStart - textArrayLast.length , textarea.selectionEnd, "end");
+    else
+        textarea.setRangeText(value, textarea.selectionStart , textarea.selectionStart, "end");
     dropdown.innerHTML  = ""
-    textarea.setRangeText('', textarea.selectionStart, textarea.selectionEnd, "end")
     dropdown.style.visibility = "hidden"
-
-
+    firstElement = "   "
 }
 function SizeLineChar(textarea){
+
     var text = textarea.value;
     var textArray = text.split("\n");
     var textArrayLength = textArray.length;
@@ -106,7 +117,7 @@ function autoCompelet(cursorX, cursorY){
 
     dropdown.style.visibility = 'hidden'
     var list = []
-    var text = textarea.value;
+    var text = textarea.value.slice(0, textarea.selectionEnd);
     var textArray = text.split(/[\s,]+/);
     var textArrayLength = textArray.length;
     var textArrayLast = textArray[textArrayLength - 1];
@@ -125,10 +136,8 @@ function autoCompelet(cursorX, cursorY){
     if(list.length > 0) {
         dropdown.style.visibility = "visible"
         for(var i = 0; i < list.length; i++) {
-            dropdown.innerHTML += `<div class = "li" onclick ="GetValue('${list[i]}')">${list[i]}</div>`
+            dropdown.innerHTML += `<div class = "li" onclick ="GetValue('${list[i]}')">${list[i]}</div>`;
         }
     }else
         dropdown.style.visibility = "hidden"
-    dropdown.style.top = (textarea.selectionStart + 250 + coutingLine(textarea) * 22).toString()  + "px"
-    dropdown.style.left = (textarea.selectionStart + 20 + SizeLineChar(textarea) * 10.3).toString() + "px"
 }

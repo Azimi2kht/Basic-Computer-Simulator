@@ -75,6 +75,7 @@ textarea:hover, input:hover, textarea:active, input:active, textarea:focus, inpu
 textarea::selection{
     background: #7a7878;
 }
+
 #editor{
     align-items: center;
     justify-content: center;
@@ -110,18 +111,92 @@ span{
     /* opacity: 0.1; */
 }
 #input{
-    width: 100%;
+    width: 40%;
     display: flex;
     flex-direction: column;
 }
+
 #output{
     display: flex;
-    float:left;
+    width: 100%;
     overflow: hidden;
+    justify-content: center;
+    padding: 50px;
+    background-color: #359caa44;
 }
 #output_text{
-    background-color: #359daab0;
-    color: azure;
+    background-color: rgba(207, 130, 214, 0.507);
+    flex-direction: row;
+    padding: 40px;
+    justify-content: center;
+    border-radius: 10px;
+    display:flex;
+}
+.reg{
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 50px;
+    font-size: 15px;
+    align-items: center;
+}
+.reg div{
+    align-items: center;
+    display: flex;
+    margin: 9px;
+    justify-content: center;
+}
+.reg div span{
+    margin: 4px;
+    margin-right: 6px;
+    padding: 0;
+    font-size: larger;
+}
+#btn-reg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#btn-reg button{
+    margin: 10px;
+    border-radius: 4px;
+    border: 0;
+    background-color: rgba(255, 255, 255, 0.623);
+    padding:6px;
+}
+#btn-reg button:hover{
+    background-color: #e2a9e773;
+    box-shadow: 0 0 7px rgb(223, 214, 214);
+}   
+
+.input-reg{
+    width: 50px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.514);
+    border: 0;
+}
+#registers{
+   margin: 0 10px;
+}
+#informtion{
+    background-color: rgba(214, 160, 160, 0.37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    width: 200px;
+    height: 100%;
+    overflow-y: auto;
+}
+#memory{
+    padding: 10px;
+    display: flex;
+}
+#line-memroy{
+    overflow: hidden;
+    
 }
 #center-body {
     display: flex;
