@@ -1,10 +1,4 @@
 import assembler
-import register
-
-x = register.Register(10)
-x.inr()
-x.inr()
-x.inr()
 
 # read the assembly code
 file = open('assembly.asm', 'r')
